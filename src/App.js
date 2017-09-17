@@ -4,24 +4,35 @@ class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			txt: 'this is the state txt',
-			cat: 0
+			a: ''
 		}
 	}
 
 	update(e){
-		this.setState({txt: e.target.value})
+		this.setState({
+			a: this.a.refs.input.value,
+			b: this.refs.b.value
+	})
 	}
 	render(){
 		return (
 			<div>
-				<h1>{this.state.txt} - {this.state.cat}</h1>
-				<Widget update={this.update.bind(this)}/>
+				<Input ref={component => this.a = component} update={this.update.bind(this)}/>
+				{this.state.a}
+				<hr />
+				<input ref="b" onChange={this.update.bind(this)}/>
+				{this.state.b}
 			</div>
 			) 
 	}
 }
 
-const Widget = (props) => <input type="text" onChange={props.update} />
+class Input extends React.Component {
+	render() {
+		return <input ref="input" type="text" onChange={this.props.update}/>
+	}
+}
+
+
 
 export default App;
